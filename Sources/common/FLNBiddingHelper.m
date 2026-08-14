@@ -2,8 +2,9 @@
 //  FLNBiddingHelper.m
 //  WindmillSample
 //
-//  按 FLNAdSDK 6.2.0.14 FLNAdProtocol：value 一律 NSString。
+//  按 FLNAdSDK 6.2.0.17 FLNAdProtocol：value 一律 NSString。
 //  竞胜：second_price、winner_adn；竞败：winner_price、winner_adn、loss_reason。
+//  winner_adn 映射为 FLN 约定：csj/gdt/bd/ks/sigmob/mtg/inmobi/other/unknown。
 //
 
 #import "FLNBiddingHelper.h"
@@ -19,13 +20,29 @@ static NSString *FLNStringPrice(NSString *price, int64_t fallback) {
 
 static NSString *FLNWinnerAdnName(TBBidResultModel *bid) {
     if (!bid) {
-        return @"";
+        return @"unknown";
     }
-    NSString *name = [bid adnName:bid.adn];
-    if (name.length > 0) {
-        return name;
+    switch (bid.adn) {
+        case WindMillAdnCSJ:
+        case WindMillAdnPangle:
+            return @"csj";
+        case WindMillAdnGDT:
+            return @"gdt";
+        case WindMillAdnBaidu:
+            return @"bd";
+        case WindMillAdnKs:
+            return @"ks";
+        case WindMillAdnSigmob:
+            return @"sigmob";
+        case WindMillAdnMTG:
+            return @"mtg";
+        case WindMillAdnInMobi:
+            return @"inmobi";
+        case WindMillAdnNone:
+            return @"unknown";
+        default:
+            return @"other";
     }
-    return [NSString stringWithFormat:@"%u", (unsigned)bid.adn];
 }
 
 void FLNApplyMediaBidResult(AWMMediaBidResult *result, id<FLNAdProtocol> obj) {

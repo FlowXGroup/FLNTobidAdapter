@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'FLNTobidAdapter'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'ToBid custom adapter for FLNAdSDK (includes FLNAdSDK).'
   s.description      = <<-DESC
     ToBid Custom Adapter（开屏 / 插屏 / 激励 / 原生）。

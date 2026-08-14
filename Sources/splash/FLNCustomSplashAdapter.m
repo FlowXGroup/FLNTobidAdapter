@@ -3,6 +3,7 @@
 //  WindmillSample
 //
 //  加载超时：[WindMillConstant Timeout] → splashAd.timeout。
+//  展示：extra[BottomView] → showAdInWindow:withBottomView:（媒体品牌区）。
 //
 
 #import "FLNCustomSplashAdapter.h"
@@ -42,7 +43,6 @@
 }
 
 - (void)showSplashAdInWindow:(UIWindow *)window parameter:(AWMParameter *)parameter {
-    (void)parameter;
     UIWindow *targetWindow = window;
     if (!targetWindow) {
         for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
@@ -68,7 +68,11 @@
         }
     }
     if (targetWindow && [self.splashAd isReady]) {
-        [self.splashAd showAdInWindow:targetWindow];
+        UIView *bottomView = [parameter.extra objectForKey:[WindMillConstant BottomView]];
+        if (![bottomView isKindOfClass:[UIView class]]) {
+            bottomView = nil;
+        }
+        [self.splashAd showAdInWindow:targetWindow withBottomView:bottomView];
     } else {
         NSError *error = [NSError errorWithDomain:@"FLN" code:-1 userInfo:@{ NSLocalizedDescriptionKey: @"splash not ready" }];
         [self.bridge splashAdDidShowFailed:self error:error];

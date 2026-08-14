@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "FLNAdProtocol.h"
+NS_ASSUME_NONNULL_BEGIN
 
 
 @interface FLNUnifiedNativeAdDataObject : NSObject <FLNAdProtocol>
@@ -16,7 +17,7 @@
 /**
  广告标题
  */
-@property (nonatomic, copy, readonly) NSString *title;
+@property (nonatomic, copy, readonly) NSString * _Nullable title;
 
 /**
  广告描述
@@ -47,6 +48,11 @@
 @property (nonatomic, copy, readonly) NSString *videoUrl;
 
 /**
+ 视频封面图 URL；无视频或服务端未下发时可为空
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *videoImageUrl;
+
+/**
  视频时长，单位秒
  */
 @property (nonatomic, readonly) NSInteger videoDuration;
@@ -54,7 +60,7 @@
 /**
  应用类广告的价格
  */
-@property (nonatomic, strong, readonly) NSNumber *appPrice;
+@property (nonatomic, strong, readonly) NSNumber * _Nullable appPrice;
 
 /**
  是否为应用类广告
@@ -76,7 +82,7 @@
  广告对应的按钮展示文案
  此字段可能为空
  */
-@property (nonatomic, readonly) NSString *buttonText;
+@property (nonatomic, readonly) NSString * _Nullable buttonText;
 
 /**
  广告对应的CTA文案，自定义CTA视图时建议使用此字段
@@ -84,7 +90,7 @@
 
  该字段在部分广告类型中可能为空
  */
-@property (nonatomic, readonly) NSString *callToAction;
+@property (nonatomic, readonly) NSString * _Nullable callToAction;
  
  
 
@@ -103,7 +109,6 @@
  */
 - (BOOL)equalsAdData:(FLNUnifiedNativeAdDataObject *)dataObject;
 
-
-
-
 @end
+
+NS_ASSUME_NONNULL_END

@@ -113,6 +113,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)showAdInWindow:(UIWindow *)window;
 
+/**
+ * 在窗口中展示广告；底部可贴宿主自定义视图（如 App Logo 区）
+ * @param window 要展示广告的窗口
+ * @param bottomView 贴屏幕底部；传 nil 则全屏。有值时高度取该 view 自身高度，且不超过屏高的 25%
+ */
+- (void)showAdInWindow:(UIWindow *)window withBottomView:(UIView * _Nullable)bottomView;
 
 @end
 
