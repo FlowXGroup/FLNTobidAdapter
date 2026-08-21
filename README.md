@@ -1,11 +1,11 @@
 # FLNTobidAdapter
 
-ToBid 自定义 Adapter，已内含 `FLNAdSDK.xcframework`。
+ToBid 自定义 Adapter，依赖 `FLNAdSDK`（CocoaPods）与 `ToBid-iOS-RC`。
 
 ## 要求
 
 - iOS 13.0+
-- 内含 `FLNAdSDK` 6.2.0.17
+- `FLNAdSDK` 6.2.0.18（Podfile 需声明 git 源）
 - `ToBid-iOS-RC` 5.7.4（或兼容的 ToBid / WindMillSDK）
 - **不要**同时集成 `MintegralAdapter` / MTGSDK（与 FLNAdSDK 存在 `_where` 符号冲突）
 
@@ -15,9 +15,14 @@ ToBid 自定义 Adapter，已内含 `FLNAdSDK.xcframework`。
 platform :ios, '13.0'
 use_frameworks!
 
+pod 'FLNAdSDK',
+  :git => 'https://github.com/FlowXGroup/FLNAdSDK-iOS.git',
+  :tag => '6.2.0.18'
+
 pod 'FLNTobidAdapter',
   :git => 'git@github.com:FlowXGroup/FLNTobidAdapter.git',
-  :tag => '1.0.1'
+  :tag => '1.0.2'
+# 本地调试可用：:path => '../FLNTobidAdapter'
 
 pod 'ToBid-iOS-RC', '5.7.4', :subspecs => [
   # ... 按需选择；不要 MintegralAdapter
@@ -28,7 +33,7 @@ pod 'ToBid-iOS-RC', '5.7.4', :subspecs => [
 pod install
 ```
 
-主工程无需再单独拖入 / pod `FLNAdSDK`。
+主工程不要再拖入 `FLNAdSDK.xcframework`，也不要再编译一份 Adapter 源码。
 
 ## ToBid 控制台类名
 
