@@ -2,9 +2,10 @@
 //  FLNBiddingHelper.m
 //  WindmillSample
 //
-//  按 FLNAdSDK 6.2.0.18 FLNAdProtocol：value 一律 NSString。
+//  按 FLNAdSDK 6.2.1.1 FLNAdProtocol：value 一律 NSString。
 //  竞胜：second_price、winner_adn；竞败：winner_price、winner_adn、loss_reason。
 //  winner_adn 映射为 FLN 约定：csj/gdt/bd/ks/sigmob/mtg/inmobi/other/unknown。
+//  loss_reason 仅透传 FLN 码 100/201/202/203/900；其余 ToBid reason 归为 900。
 //
 
 #import "FLNBiddingHelper.h"
@@ -16,6 +17,25 @@ static NSString *FLNStringPrice(NSString *price, int64_t fallback) {
         return price;
     }
     return [NSString stringWithFormat:@"%lld", (long long)fallback];
+}
+
+/// FLN loss_reason：100 / 201 / 202 / 203 / 900。无结果或无法对应时用 900。
+static NSString *FLNLossReason(TBBidResultModel *bid) {
+    if (!bid) {
+        return @"900";
+    }
+    switch (bid.reason) {
+        case TBReasonTimeout:
+            return @"100";
+        case TBReasonNoFill:
+            return @"201";
+        case TBReasonAboveBottomPrice:
+            return @"202";
+        case TBReasonBidFailed:
+            return @"203";
+        default:
+            return @"900";
+    }
 }
 
 static NSString *FLNWinnerAdnName(TBBidResultModel *bid) {
@@ -63,7 +83,7 @@ void FLNApplyMediaBidResult(AWMMediaBidResult *result, id<FLNAdProtocol> obj) {
         }
     } else {
         if ([obj respondsToSelector:@selector(sendLossNotificationWithInfo:)]) {
-            NSString *lossReason = bid ? [NSString stringWithFormat:@"%ld", (long)bid.reason] : @"102";
+            NSString *lossReason = FLNLossReason(bid);
             NSDictionary<NSString *, NSString *> *info = @{
                 @"winner_price": FLNStringPrice(bid.winEcpm, 0),
                 @"winner_adn": winnerAdn ?: @"",
