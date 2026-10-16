@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'FLNTobidAdapter'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.summary          = 'ToBid custom adapter for FLNAdSDK.'
   s.description      = <<-DESC
     ToBid Custom Adapter（开屏 / 插屏 / 激励 / 原生）。
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.source_files        = 'Sources/**/*.{h,m}'
   s.public_header_files = 'Sources/**/*.h'
 
-  s.dependency 'FLNAdSDK', '6.2.1.1'
+  s.dependency 'FLNAdSDK', '6.2.1.11'
   s.dependency 'ToBid-iOS-RC/ToBidSDK', '5.10.0'
 
   s.frameworks = 'Foundation', 'UIKit'

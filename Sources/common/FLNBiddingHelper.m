@@ -2,7 +2,7 @@
 //  FLNBiddingHelper.m
 //  WindmillSample
 //
-//  按 FLNAdSDK 6.2.1.1 FLNAdProtocol：value 一律 NSString。
+//  按 FLNAdSDK 6.2.1.11 FLNAdProtocol：value 一律 NSString。
 //  竞胜：second_price、winner_adn；竞败：winner_price、winner_adn、loss_reason。
 //  winner_adn 映射为 FLN 约定：csj/gdt/bd/ks/sigmob/mtg/inmobi/other/unknown。
 //  loss_reason 仅透传 FLN 码 100/201/202/203/900；其余 ToBid reason 归为 900。
