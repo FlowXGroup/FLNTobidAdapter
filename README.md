@@ -21,7 +21,7 @@ pod 'FLNAdSDK',
 
 pod 'FLNTobidAdapter',
   :git => 'git@github.com:FlowXGroup/FLNTobidAdapter.git',
-  :tag => '1.0.4'
+  :tag => '1.0.5'
 # 本地调试可用：:path => '../FLNTobidAdapter'
 
 pod 'ToBid-iOS-RC', '5.10.2', :subspecs => [
